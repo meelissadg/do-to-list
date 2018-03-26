@@ -57,7 +57,7 @@
 
                     <br>
 
-                    <div ng-repeat="x in todoList" class="list-group-item">
+                    <div ng-repeat="x in todoList | orderBy:'todoText'" class="list-group-item">
                         <input type="checkbox"  ng-model="x.done"> <span ng-bind="x.todoText"></span>
                     </div>
 
@@ -71,9 +71,11 @@
                         var app = angular.module('myApp', []); 
                         app.controller('todoCtrl', function($scope) {
                         $scope.tarefasConcluidas = [];
-                        $scope.todoList = [{todoText:'Estudar Ruby', done:false}];
+                        $scope.todoList = [{todoText:'Estudar Ruby', done:false}, {todoText:'Abra', done:false}];
                         
 
+
+                      
                         $scope.todoAdd = function() {
                             $scope.jaTa = 0;
                             
