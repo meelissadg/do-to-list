@@ -129,23 +129,23 @@
                     <div class="panel-body"><b>Tarefas Concluídas:</b></div> 
                     
                 </div>
-                    <md-list-item  class="list-group-item" ng-repeat="tarefa in tarefasConcluidas">
-                            <p>{{tarefa.todoText}}</p>
-                    </md-list-item>
-                
-            </div>
 
-            <!--
-            <ul>
 
                 <% @recipes.each do |recipe|%>
-                <p><%= tarefasNaoConcluidas(recipe) %></p>
+                <md-list-item class="list-group-item"><p><%= tarefasNaoConcluidas(recipe) %></p></md-list-item>
                 <% end %>
-            </ul>
+            
+                <md-list-item  class="list-group-item" ng-repeat="tarefa in tarefasConcluidas">
+                        <p>{{tarefa.todoText}}</p>
+                </md-list-item>
 
-            <%= link_to 'Nova tarefa', new_recipe_path %>
+                
+            </div>
+         
 
-        //-->
+            
+
+        
         </div>
 
 
