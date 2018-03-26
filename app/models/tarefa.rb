@@ -2,6 +2,6 @@ class Tarefa < ApplicationRecord
 
 	#retorna boolean
 	def concluidas?
-		!info
+		info
 	end
 end
