@@ -7,6 +7,10 @@ class RecipesController < ApplicationController
 
  	#instancia novo obj tarefa
  	def new
- 		@recipe=Tarefa.new
+ 		@recipe = Tarefa.new
+ 	end
+
+ 	def show
+ 		@recipe = Tarefa.find(params[:id])
  	end
 end

@@ -1,0 +1,100 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %meta{:charset => "utf-8"}/
+    %meta{:content => "width=device-width, initial-scale=5", :name => "viewport"}/
+    %script{:src => "https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"}
+    %link{:href => "css/style.css", :rel => "stylesheet", :type => "text/css"}/
+    %link{:href => "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css", :rel => "stylesheet"}/
+    %link{:href => "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css", :rel => "stylesheet"}/
+    %script{:src => "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"}
+  %body
+    %div{"ng-app" => ""}
+      .container
+        %nav.navbar.navbar-default
+          .container-fluid
+            .navbar-header
+              %b.navbar-brand Sua ToDo List
+            %ul.nav.nav-tabs.nav-justified
+              %li
+                %a{:href => ""} Adicione Tarefas
+              %li
+                %a{:href => ""} Tarefas Concluídas
+              %li
+                %a{:href => "https://github.com/meelissadg/do-to-list"} GitHub
+        %section#addtarefas
+          %div
+            .panel.panel-primary
+              .panel-body
+                %b Adicione suas tarefas:
+            %div
+              %form.form-inline{"ng-submit" => "todoAdd()"}
+                %input.form-control{"ng-model" => "todoInput", :placeholder => "Digite a tarefa para add:", :size => "50", :type => "text"}/
+                %button.btn.btn-info{"ng-click" => "todoAdd()", :type => "button"} Clique!
+              %br/
+              .list-group-item
+                - @recipes.each do |recipe|
+                  = check_box_tag "tarefa_ids[#{recipe.id}]", recipe.id, false, :name => "tarefa_ids[]"
+                  %p
+                    = tarefasNaoConcluidas(recipe)
+              %br/
+              %button.btn.btn-info{"ng-click" => "remove()", :type => "button"} Remover!
+            %br/
+            :javascript
+              var app = angular.module('myApp', []); 
+              app.controller('todoCtrl', function($scope) {
+              $scope.tarefasConcluidas = [];
+              $scope.todoList = [{todoText:'Estudar Ruby', done:false}];
+              
+
+              $scope.todoAdd = function() {
+                  $scope.jaTa = 0;
+                  
+                      
+                  
+
+                  if ($scope.todoList.includes($scope.todoInput)) {
+                      
+                      alert("Opa! Essa ja foi adicionada!");
+                  } else {
+
+                      $scope.todoList.push({todoText:$scope.todoInput, done:false});
+                      
+                  }
+
+                 
+                  $scope.todoInput = "";
+              };
+
+
+              $scope.remove = function() {
+                  var oldList = $scope.todoList;
+                  $scope.todoList = [];
+                  
+
+                  angular.forEach(oldList, function(x) {
+                  
+                  
+                  if (!x.done) {
+                      $scope.todoList.push(x);
+
+                      
+                  }else{
+                      $scope.tarefasConcluidas.push(x);
+                     
+                  }
+                  
+                  });
+              };
+              });
+        %div
+          .panel.panel-primary
+            .panel-body
+              %b Tarefas Concluídas:
+          %md-list-item.list-group-item{"ng-repeat" => "tarefa in tarefasConcluidas"}
+            %p {{tarefa.todoText}}
+        %ul
+          - @recipes.each do |recipe|
+            %p= tarefasNaoConcluidas(recipe)
+        = link_to 'Nova tarefa', new_recipe_path
